@@ -125,7 +125,8 @@ int main(int argc, char **argv)
     int n;
     if ((n = atoi(argv[argind]))) {
       char* digs = malloc(getdigits((unsigned int) n, base));
-      printf("%s%s\n", format_specifier, itob(n, digs, base));
+      char sign = (n < 0) ? '-' : '\0';
+      printf("%c%s%s\n", sign, format_specifier, itob(n, digs, base));
       free(digs);
     }
   }
@@ -151,9 +152,6 @@ char *itob(int n, char s[], int b)
       s[i++] = modulo + '0';
     }
   } while ((n /= b) < 0);
-  if (sign < 0) {
-    s[i++] = '-';
-  }
   s[i] = '\0';
   reverse(s);
   return s;
